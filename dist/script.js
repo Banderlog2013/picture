@@ -96,11 +96,15 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modals */ "./src/js/modules/modals.js");
+/* harmony import */ var _modules_sliders__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/sliders */ "./src/js/modules/sliders.js");
+
 
 window.addEventListener('DOMContentLoaded', () => {
   'use strict';
 
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"])();
+  Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])('.feedback-slider-item', 'horizontal', '.main-prev-btn', '.main-next-btn');
+  Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])('.main-slider-item', '.vertical');
 });
 
 /***/ }),
@@ -206,11 +210,96 @@ const modals = () => {
   bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
   bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
   bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
-  openByScroll('.fixed-gift');
-  showModalByTime('.popup-consultation', 5000);
+  openByScroll('.fixed-gift'); //showModalByTime('.popup-consultation', 5000);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
+
+/***/ }),
+
+/***/ "./src/js/modules/sliders.js":
+/*!***********************************!*\
+  !*** ./src/js/modules/sliders.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const sliders = (slides, dir, prev, next) => {
+  let slideIndex = 1,
+      // отображение текущего слайда
+  paused = false;
+  const items = document.querySelectorAll(slides); // слайды
+  // листание слайдера
+
+  function showSlides(n) {
+    if (n > items.length) {
+      // если текущее состояние больше чем ко-во слайдов
+      slideIndex = 1; // возращаемся в текущее состояние
+    }
+
+    if (n < 1) {
+      slideIndex = items.length; // обратный порядок
+    } // скрываем все слайды
+
+
+    items.forEach(item => {
+      item.classList.add("animated");
+      item.style.display = "none";
+    }); // показ нужного слайда
+
+    items[slideIndex - 1].style.display = 'block';
+  }
+
+  showSlides(slideIndex);
+
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  try {
+    const prevBtn = document.querySelector(prev),
+          // кнопка назад
+    nextBtn = document.querySelector(next); // вперед
+
+    prevBtn.addEventListener('click', () => {
+      plusSlides(-1);
+      items[slideIndex - 1].classList.remove('slideInLeft');
+      items[slideIndex - 1].classList.add('slideInRight');
+    });
+    nextBtn.addEventListener('click', () => {
+      plusSlides(1);
+      items[slideIndex - 1].classList.remove('slideInRight');
+      items[slideIndex - 1].classList.add('slideInLeft');
+    });
+  } catch (e) {}
+
+  function activateAnimation() {
+    if (dir === 'vertical') {
+      paused = setInterval(function () {
+        plusSlides(1);
+        items[slideIndex - 1].classList.add('slideInDown');
+      }, 3000);
+    } else {
+      paused = setInterval(function () {
+        plusSlides(1);
+        items[slideIndex - 1].classList.remove('slideInRight');
+        items[slideIndex - 1].classList.add('slideInDown');
+      }, 3000);
+    }
+  }
+
+  activateAnimation();
+  items[0].parentNode.addEventListener('mouseenter', () => {
+    clearInterval(paused);
+  });
+  items[0].parentNode.addEventListener('mouseleave', () => {
+    activateAnimation();
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (sliders);
 
 /***/ })
 
