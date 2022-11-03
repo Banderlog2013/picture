@@ -97,6 +97,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modals */ "./src/js/modules/modals.js");
 /* harmony import */ var _modules_sliders__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/sliders */ "./src/js/modules/sliders.js");
+!(function webpackMissingModule() { var e = new Error("Cannot find module './modules/forms'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+
 
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -105,6 +107,7 @@ window.addEventListener('DOMContentLoaded', () => {
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"])();
   Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])('.feedback-slider-item', 'horizontal', '.main-prev-btn', '.main-next-btn');
   Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])('.main-slider-item', '.vertical');
+  !(function webpackMissingModule() { var e = new Error("Cannot find module './modules/forms'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())();
 });
 
 /***/ }),
