@@ -1,0 +1,22 @@
+// отправка запросов
+const postData = async (url, data) => {
+    let res = await fetch(url, { 
+        method: "POST",
+        body: data
+    });
+
+    return await res.text(); 
+};
+
+// получение ответа на запрос
+const getResource = async (url) => {
+    let res = await fetch(url);
+
+    if (!res.ok) {
+        throw new Error(`Cloud not fetch ${url}, status: ${res.status}`);
+    }
+
+    return await res.json(); 
+};
+
+export {postData, getResource};
